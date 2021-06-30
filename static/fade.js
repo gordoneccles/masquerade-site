@@ -5,11 +5,12 @@ window.onload = function() {
   const elIdToTarget = {
     '#welcome': 0,
     '#info': 200,
-  }
+  };
   let ctr = 0;
 
   const doFade = (delta) => {
-    ctr += delta;
+    const normalizedDelta = delta / Math.abs(delta);
+    ctr += (2 * normalizedDelta)
     ctr = Math.max(0, ctr)
     ctr = Math.min(200, ctr)
 
@@ -24,9 +25,9 @@ window.onload = function() {
   document.addEventListener('DOMMouseScroll', function(e) {
     doFade(e.detail);
   }, false);
-  // Others
+  // Chrome, Safari
   document.addEventListener('mousewheel', function(e) {
-    doFade(e.wheelDelta);
+    doFade(-1 * e.wheelDelta);
   }, false);
 
 };
