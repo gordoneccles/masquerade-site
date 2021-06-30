@@ -8,14 +8,23 @@
 
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
+
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script type=text/javascript src="{{ url_for('static', filename='fade.js') }}"></script>
     </head>
     <body>
-        <div id="welcome">
-            Welcome
-        </div>
-        <div id="info">
-          Info
+        <div id="container">
+            <div id="welcome">
+                <p>Welcome.</p>
+                <p>You have been invited...</p>
+            </div>
+            <div id="info">
+                Info
+            </div>
         </div>
     </body>
 </html>

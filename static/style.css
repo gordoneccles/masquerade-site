@@ -1,4 +1,26 @@
 body {
-    background-color: black;
+    background-color: #080808;
     color: white;
+    font-family: 'Tangerine', cursive;
+    font-size: 42px;
+}
+
+#container {
+    position: absolute;
+    left: 50%;
+}
+
+#welcome {
+    position: relative;
+    left: -50%;
+    padding: 1em;
+    opacity: 1;
+}
+
+#info {
+    padding: 1em;
+    position: relative;
+    left: -50%;
+    padding: 1em;
+    opacity: 0;
 }
