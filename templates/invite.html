@@ -11,7 +11,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Miss+Fajardose&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <script type=text/javascript src="{{ url_for('static', filename='fade.js') }}"></script>
@@ -20,10 +20,31 @@
         <div id="container">
             <div id="welcome">
                 <p>Welcome.</p>
-                <p>You have been invited...</p>
+                <p>You have been invited to an evening of Masked Revelry.</p>
             </div>
             <div id="info">
-                Info
+                <p>Your hosts, King and Queen of the Fae Wild, promise libations and entertainment.</p>
+                <p>The gateway open on the 30th of October, 2021.</p>
+                <p>In the human city of New York.</p>
+            </div>
+            <div id="warning">
+                <p>Their request is not lightly refused.</p>
+            </div>
+            <div id="final">
+                <div id="accept">
+                    <p>To accept their hospitality, give up your name.</p>
+                    <div id="name">
+                        <form action="/accept" method="POST">
+                            <input type="text" name="name" placeholder="Name"/>
+                            <input type="text" name="email" placeholder="Email"/>
+                            <button id="accept-btn">I Accept</button>
+                        </form>
+                    </div>
+                </div>
+                <div id="thank-you">
+                    <p>Thank you. Prepare to come as you are not.</p>
+                    <p>Find inspiration on what might delight the King and Queen <a href="www.google.com">here</a>.</p>
+                </div>
             </div>
         </div>
     </body>
