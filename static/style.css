@@ -2,7 +2,43 @@ body {
     background-color: #080808;
     color: white;
     font-family: 'Miss Fajardose', cursive;
-    font-size: 64px;
+    font-size: 58px;
+}
+
+@media screen and (max-width: 1200px) {
+    body {
+        font-size: 46px;
+    }
+}
+@media screen and (max-width: 820px) {
+    body {
+        font-size: 40px;
+    }
+}
+@media screen and (max-width: 700px) {
+    body {
+        font-size: 37px;
+    }
+}
+@media screen and (max-width: 580px) {
+    body {
+        font-size: 32px;
+    }
+}
+@media screen and (max-width: 460px) {
+    body {
+        font-size: 28px;
+    }
+}
+@media screen and (max-width: 320px) {
+    body {
+        font-size: 25px;
+    }
+}
+@media screen and (max-width: 220px) {
+    body {
+        font-size: 22px;
+    }
 }
 
 #welcome {
