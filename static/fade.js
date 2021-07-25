@@ -36,25 +36,45 @@ const addMousewheelHandler = () => {
 const addTouchHandlers = () => {
     let opacityStart;
     let startY;
+    let moveEvents;
     document.addEventListener(
         "touchstart",
         e => {
             startY = e.changedTouches[0].clientY;
             opacityStart = opacityPoint;
+            moveEvents = [];
         },
         false
     );
     document.addEventListener(
         "touchmove",
         e => {
-            setOpacity(opacityStart + Math.floor((startY - e.changedTouches[0].clientY) / 4))
+            setOpacity(opacityStart + Math.floor((startY - e.changedTouches[0].clientY) / 4));
+            moveEvents.push(e);
+            if (moveEvents.length > 1000) {
+                moveEvents = moveEvents.slice(Math.floor(moveEvents.length / 2))
+            }
         },
         false
     );
-    // document.addEventListener(
-    //     "touchend",
-    //     e => startY = null,
-    //     false);
+    document.addEventListener(
+        "touchend",
+        e => {
+            const recentMoves = moveEvents.filter(mvE => e.timeStamp - mvE.timeStamp < 200);
+            if (recentMoves.length > 0) {
+                const yDelta = moveEvents[0].changedTouches[0].clientY - e.changedTouches[0].clientY;
+                let velocity = Math.floor(yDelta / (e.timeStamp - recentMoves[0].timeStamp));
+                const inertiaScroll = v => {
+                    if (Math.abs(v) > .1) {
+                        const newV = v > 0 ? v - .1 : v + .1;
+                        setTimeout(inertiaScroll.bind(null, newV), 20)
+                    }
+                    setOpacity(opacityPoint + v);
+                }
+                inertiaScroll(velocity);
+            }
+        },
+        false);
 };
 
 const addSubmitHandler = () => {
