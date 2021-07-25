@@ -6,16 +6,13 @@ const OPACITY_POINTS = {
 };
 let opacityPoint = 0;
 
-const updateOpacities = () => {
+const setOpacity = val => {
+    opacityPoint = Math.min(600, Math.max(0, val));
     for (const [elId, target] of Object.entries(OPACITY_POINTS)) {
         const el = document.querySelector(elId);
         const opacity = (100 - Math.abs(target - opacityPoint)) / 100;
         el.style.opacity = '' + opacity;
     }
-};
-const setOpacity = val => {
-    opacityPoint = Math.min(600, Math.max(0, val));
-    updateOpacities();
 };
 
 const addDomScrollHandler = () => {
@@ -42,10 +39,8 @@ const addTouchHandlers = () => {
     document.addEventListener(
         "touchstart",
         e => {
-            let t = e.changedTouches[0];
-            startY = t.clientY;
+            startY = e.changedTouches[0].clientY;
             opacityStart = opacityPoint;
-            console.log(`capture opacityStart to ${opacityPoint}`)
         },
         false
     );
