@@ -61,18 +61,18 @@ const addTouchHandlers = () => {
         "touchend",
         e => {
             const recentMoves = moveEvents.filter(mvE => e.timeStamp - mvE.timeStamp < 200);
-            if (recentMoves.length > 0) {
-                const yDelta = moveEvents[0].changedTouches[0].clientY - e.changedTouches[0].clientY;
-                let velocity = Math.floor(yDelta / (e.timeStamp - recentMoves[0].timeStamp));
-                const inertiaScroll = v => {
-                    if (Math.abs(v) > .1) {
-                        const newV = v > 0 ? v - .1 : v + .1;
-                        setTimeout(inertiaScroll.bind(null, newV), 20)
-                    }
-                    setOpacity(opacityPoint + v);
+            if (recentMoves.length === 0) return;
+
+            const yDelta = moveEvents[0].changedTouches[0].clientY - e.changedTouches[0].clientY;
+            let velocity = Math.floor(yDelta / (e.timeStamp - recentMoves[0].timeStamp));
+            const inertiaScroll = v => {
+                if (Math.abs(v) > .1) {
+                    const newV = v > 0 ? v - .1 : v + .1;
+                    setTimeout(inertiaScroll.bind(null, newV), 20)
                 }
-                inertiaScroll(velocity);
+                setOpacity(opacityPoint + v);
             }
+            inertiaScroll(velocity);
         },
         false);
 };
