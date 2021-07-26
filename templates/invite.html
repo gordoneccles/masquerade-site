@@ -18,20 +18,26 @@
     </head>
     <body>
         <div id="container">
-            <div id="welcome">
-                <p>Welcome.</p>
-                <p>You have been invited to an evening of Masked Revelry.</p>
+            <div id="welcome" class="fading">
+                <span>
+                    <p>Welcome.</p>
+                    <p>You have been invited to an evening of Masked Revelry.</p>
+                </span>
             </div>
-            <div id="info">
-                <p>Your hosts, King and Queen of the Fae Wild, promise libations and entertainment.</p>
-                <p>The gateway opens on the 30th of October, 2021.</p>
-                <p>In the human city of New York.</p>
+            <div id="info" class="fading">
+                <span>
+                    <p>Your hosts, King and Queen of the Fae Wild, promise libations and entertainment.</p>
+                    <p>The gateway opens on the 30th of October, 2021.</p>
+                    <p>In the human city of New York.</p>
+                </span>
             </div>
-            <div id="warning">
-                <p>Their request is not lightly refused.</p>
+            <div id="warning" class="fading">
+                <span>
+                    <p>Their request is not lightly refused.</p>
+                </span>
             </div>
-            <div id="final">
-                <div id="accept">
+            <div id="final" class="fading">
+                <span id="accept">
                     <p>To accept their hospitality, give up your name.</p>
                     <div id="name">
                         <form action="/accept" method="POST">
@@ -40,11 +46,11 @@
                             <button id="accept-btn">I Accept</button>
                         </form>
                     </div>
-                </div>
-                <div id="thank-you">
+                </span>
+                <span id="thank-you">
                     <p>Thank you. Prepare to come as you are not.</p>
                     <p>Find inspiration on what might delight the King and Queen <a href="www.google.com">here</a>.</p>
-                </div>
+                </span>
             </div>
         </div>
     </body>

@@ -4,10 +4,11 @@ const OPACITY_POINTS = {
     '#warning': 400,
     '#final': 600,
 };
-let opacityPoint = 0;
+let opacityPoint = -100;
 
-const setOpacity = val => {
-    opacityPoint = Math.min(600, Math.max(0, val));
+const setOpacity = (val, isIntro = false) => {
+    const minVal = isIntro ? -100 : 0;
+    opacityPoint = Math.min(600, Math.max(val, minVal));
     for (const [elId, target] of Object.entries(OPACITY_POINTS)) {
         const el = document.querySelector(elId);
         const opacity = (100 - Math.abs(target - opacityPoint)) / 100;
@@ -37,12 +38,15 @@ const addTouchHandlers = () => {
     let opacityStart;
     let startY;
     let moveEvents;
+    let userIsScrolling = false;
+
     document.addEventListener(
         "touchstart",
         e => {
             startY = e.changedTouches[0].clientY;
             opacityStart = opacityPoint;
             moveEvents = [];
+            userIsScrolling = true;
         },
         false
     );
@@ -60,17 +64,21 @@ const addTouchHandlers = () => {
     document.addEventListener(
         "touchend",
         e => {
+            userIsScrolling = false;
             const recentMoves = moveEvents.filter(mvE => e.timeStamp - mvE.timeStamp < 200);
             if (recentMoves.length === 0) return;
 
             const yDelta = moveEvents[0].changedTouches[0].clientY - e.changedTouches[0].clientY;
             let velocity = Math.floor(yDelta / (e.timeStamp - recentMoves[0].timeStamp));
             const inertiaScroll = v => {
+                if (userIsScrolling) return;
+
                 if (Math.abs(v) > .1) {
                     const newV = v > 0 ? v - .1 : v + .1;
                     setTimeout(inertiaScroll.bind(null, newV), 20)
                 }
-                setOpacity(opacityPoint + v);
+
+                setOpacity(opacityPoint + v * 2);
             }
             inertiaScroll(velocity);
         },
@@ -97,14 +105,25 @@ const addSubmitHandler = () => {
             }
         }).catch(err =>
             console.log(err)
-        )
-    })
-}
+        );
+    });
+};
+
+const fadeInWelcome = () => {
+    const token = setInterval(() => {
+        if (opacityPoint >= 0) {
+            clearInterval(token)
+        } else {
+            setOpacity(opacityPoint + 2, true);
+        }
+    }, 50);
+};
 
 
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', function () {
     addDomScrollHandler();
     addMousewheelHandler();
     addTouchHandlers();
     addSubmitHandler();
-};
+    fadeInWelcome();
+}, false);
