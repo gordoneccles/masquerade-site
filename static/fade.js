@@ -78,7 +78,7 @@ const addTouchHandlers = () => {
                     setTimeout(inertiaScroll.bind(null, newV), 20)
                 }
 
-                setOpacity(opacityPoint + v * 2);
+                setOpacity(opacityPoint + v * 4);
             }
             inertiaScroll(velocity);
         },
