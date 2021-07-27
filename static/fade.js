@@ -69,7 +69,7 @@ const addTouchHandlers = () => {
             if (recentMoves.length === 0) return;
 
             const yDelta = moveEvents[0].changedTouches[0].clientY - e.changedTouches[0].clientY;
-            let velocity = Math.floor(yDelta / (e.timeStamp - recentMoves[0].timeStamp));
+            let velocity = Math.floor(yDelta / (e.timeStamp - recentMoves[0].timeStamp)) * 4;
             const inertiaScroll = v => {
                 if (userIsScrolling) return;
 
@@ -78,7 +78,7 @@ const addTouchHandlers = () => {
                     setTimeout(inertiaScroll.bind(null, newV), 20)
                 }
 
-                setOpacity(opacityPoint + v * 4);
+                setOpacity(opacityPoint + v);
             }
             inertiaScroll(velocity);
         },
