@@ -23,10 +23,14 @@ app = Flask(__name__)
 
 @app.route('/accept', methods=['POST'])
 def accept():
-    name = request.form.get("name")
-    email = request.form.get("email")
-    app.logger.info(f'ACCEPT_EVENT: email="{email}" name="{name}"')
-    return {'success': True}
+    try:
+        name = request.json.get("name")
+        email = request.json.get("email")
+        app.logger.info(f'ACCEPT_EVENT: email="{email}" name="{name}"')
+        return {'success': True}
+    except:
+        app.logger.exception(f'Invite accept failed')
+        return {'success': False}
 
 
 @app.route('/', methods=['GET'])

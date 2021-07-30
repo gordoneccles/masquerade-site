@@ -6,6 +6,9 @@ body {
     overscroll-behavior: none;
     overflow: hidden;
 }
+p {
+    margin: 0px;
+}
 
 .fading {
     position: fixed;
@@ -15,9 +18,9 @@ body {
     opacity: 0;
 }
 
-.fading span {
-    margin: 1em 0em 1em 0em;
+.fading > span {
     max-width: 75%;
+    margin: 1em 0em 1em 0em;
 }
 
 #container {
@@ -28,8 +31,38 @@ body {
     color: #B80F0A;
 }
 
+#accept-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 #thank-you {
-    display: none;
+  display: none;
+  opacity: 0;
+}
+#chickens img {
+    filter: invert(100%);
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: 200px;
+}
+#chickens img:hover {
+    cursor: pointer;
+}
+.image_off, #chickens:hover .image_on {
+   display:none;
+}
+.image_on, #chickens:hover .image_off {
+   display:block;
+}
+input {
+    border: none;
+    border-radius: 2px;
+    padding: 5px;
+}
+input.invalid {
+  border: 2px solid #B80F0A;
 }
 
 @media screen and (max-width: 1200px) {
@@ -67,3 +100,4 @@ body {
         font-size: 30px;
     }
 }
+

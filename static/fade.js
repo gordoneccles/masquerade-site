@@ -1,14 +1,15 @@
 const OPACITY_POINTS = {
     '#welcome': 0,
-    '#info': 200,
+    '#fae': 200,
     '#warning': 400,
-    '#final': 600,
+    '#party-info': 600,
+    '#accept': 800,
 };
 let opacityPoint = -100;
 
 const setOpacity = (val, isIntro = false) => {
     const minVal = isIntro ? -100 : 0;
-    opacityPoint = Math.min(600, Math.max(val, minVal));
+    opacityPoint = Math.min(800, Math.max(val, minVal));
     for (const [elId, target] of Object.entries(OPACITY_POINTS)) {
         const el = document.querySelector(elId);
         const opacity = (100 - Math.abs(target - opacityPoint)) / 100;
@@ -85,27 +86,97 @@ const addTouchHandlers = () => {
         false);
 };
 
+
+const fadeBetween = (fromEl, toEl) => {
+
+  const fadeIn = () => {
+    const fadeInToken = setInterval(() => {
+      const opacity = Number(toEl.style.opacity || 0);
+      if (opacity >= 1) {
+        clearInterval(fadeInToken);
+      } else {
+        toEl.style.display = 'block';
+        toEl.style.opacity = '' + (opacity + 0.05);
+      }
+    },
+    15
+    )
+  }
+
+  const fadeOutToken = setInterval(() => {
+    const opacity = Number(fromEl.style.opacity || 1);
+    if (opacity <= 0) {
+      fromEl.style.display = 'none';
+      clearInterval(fadeOutToken);
+      fadeIn();
+    } else {
+      fromEl.style.opacity = '' + (opacity - .05);
+    }
+  },
+  15
+  )
+
+}
+
+const validateInputs = (nameEl, emailEl) => {
+  let valid = true;
+
+  if ([null, undefined, ''].includes(nameEl.value)) {
+    nameEl.classList.add('invalid');
+    valid = false;
+  } else {
+    nameEl.classList.remove('invalid');
+  }
+
+
+  if ([null, undefined, ''].includes(emailEl.value)) {
+    emailEl.classList.add('invalid');
+    valid = false;
+  } else if (!emailEl.value.match(/.+@.+/)) {
+    emailEl.classList.add('invalid');
+    valid = false;
+  } else {
+    emailEl.classList.remove('invalid');
+  }
+
+  return valid;
+}
+
 const addSubmitHandler = () => {
-    const acceptForm = document.getElementById('accept');
-    acceptForm.addEventListener('submit', e => {
-        e.preventDefault();
+    let buttonIsClickable = true
+    const acceptInvite = e => {
+        const nameInput = document.querySelector('#name-input');
+        const emailInput = document.querySelector('#email-input');
+
+        const isValid = validateInputs(nameInput, emailInput);
+        if (!isValid) return;
+
+        buttonIsClickable = false;
         fetch(
             '/accept',
             {
-                body: new FormData(e.target),
-                method: 'POST'
-            }
+                body: JSON.stringify({ name: nameInput.value, email: emailInput.value }),
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            },
         ).then(d =>
             d.json()
         ).then(res => {
             if (res['success']) {
+                const acceptContainer = document.getElementById('accept-container');
                 const thankYou = document.getElementById('thank-you');
-                acceptForm.style.display = 'none';
-                thankYou.style.display = 'block';
+                fadeBetween(acceptContainer, thankYou);
             }
-        }).catch(err =>
-            console.log(err)
-        );
+        }).catch(err => {
+            buttonIsClickable = true;
+            console.log(err);
+        });
+    };
+
+    document.getElementById('chickens').addEventListener('click', e => {
+        if (buttonIsClickable) {
+            acceptInvite();
+        }
     });
 };
 
@@ -127,3 +198,4 @@ document.addEventListener('DOMContentLoaded', function () {
     addSubmitHandler();
     fadeInWelcome();
 }, false);
+
