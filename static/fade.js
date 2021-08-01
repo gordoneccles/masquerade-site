@@ -70,7 +70,7 @@ const addTouchHandlers = () => {
             if (recentMoves.length === 0) return;
 
             const yDelta = moveEvents[0].changedTouches[0].clientY - e.changedTouches[0].clientY;
-            let velocity = Math.floor(yDelta / (e.timeStamp - recentMoves[0].timeStamp)) * 4;
+            let velocity = Math.floor(yDelta / (e.timeStamp - recentMoves[0].timeStamp)) * 2;
             const inertiaScroll = v => {
                 if (userIsScrolling) return;
 
