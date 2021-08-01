@@ -17,23 +17,13 @@ const setOpacity = (val, isIntro = false) => {
     }
 };
 
-const addDomScrollHandler = () => {
-    // Firefox
-    document.addEventListener('DOMMouseScroll', function (e) {
-        const delta = e.detail;
-        const normalizedDelta = delta / Math.abs(delta);
+const addWheelHandler = () => {
+    document.addEventListener('wheel', function (e) {
+        const normalizedDelta = e.deltaY / Math.abs(e.deltaY);
         setOpacity(opacityPoint + 2 * normalizedDelta);
     }, false);
 };
 
-const addMousewheelHandler = () => {
-    // Chrome, Safari
-    document.addEventListener('mousewheel', function (e) {
-        const delta = -1 * e.wheelDelta;
-        const normalizedDelta = delta / Math.abs(delta);
-        setOpacity(opacityPoint + 2 * normalizedDelta);
-    }, false);
-};
 
 const addTouchHandlers = () => {
     let opacityStart;
@@ -192,8 +182,7 @@ const fadeInWelcome = () => {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    addDomScrollHandler();
-    addMousewheelHandler();
+    addWheelHandler();
     addTouchHandlers();
     addSubmitHandler();
     fadeInWelcome();
