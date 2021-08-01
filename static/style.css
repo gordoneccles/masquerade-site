@@ -60,9 +60,17 @@ input {
     border: none;
     border-radius: 2px;
     padding: 5px;
+    margin: 10px;
 }
 input.invalid {
   border: 2px solid #B80F0A;
+}
+#input-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 @media screen and (max-width: 1200px) {

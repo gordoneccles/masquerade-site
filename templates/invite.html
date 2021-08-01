@@ -43,12 +43,10 @@
             <div id="accept" class="fading">
               <span id="accept-container">
                     <p>To accept their hospitality, give up your name.</p>
-                    <span action="/accept" method="POST">
-                        <div>
-                            <input id="name-input" type="text" name="name" placeholder="Name"/>
-                            <input id="email-input" type="text" name="email" placeholder="Email"/>
-                        </div>
-                    </span>
+                    <div id="input-container">
+                        <input id="name-input" type="text" name="name" placeholder="Name"/>
+                        <input id="email-input" type="text" name="email" placeholder="Email"/>
+                    </div>
                     <div id="chickens">
                         <img class="image_on" src="{{ url_for('static', filename='chicken.png') }}" />
                         <img class="image_off" src="{{ url_for('static', filename='flying-chicken.png') }}" />
