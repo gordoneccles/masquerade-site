@@ -12,8 +12,14 @@ const setOpacity = (val, isIntro = false) => {
     opacityPoint = Math.min(800, Math.max(val, minVal));
     for (const [elId, target] of Object.entries(OPACITY_POINTS)) {
         const el = document.querySelector(elId);
-        const opacity = (100 - Math.abs(target - opacityPoint)) / 100;
-        el.style.opacity = '' + opacity;
+        const oldOpacity = Number(el.style.opacity);
+        const newOpacity = (100 - Math.abs(target - opacityPoint)) / 100;
+        el.style.opacity = '' + newOpacity;
+        if (oldOpacity <= 0 && newOpacity > 0) {
+          el.style.display = 'flex';
+        } else if (oldOpacity > 0 && newOpacity <= 0) {
+          el.style.display = 'none';
+        }
     }
 };
 

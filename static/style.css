@@ -10,9 +10,13 @@ p {
     margin: 0px;
 }
 
+#container {
+    display: flex;
+}
+
 .fading {
     position: fixed;
-    display: flex;
+    display: none;
     justify-content: center;
     width: 100%;
     opacity: 0;
@@ -21,10 +25,6 @@ p {
 .fading > span {
     max-width: 75%;
     margin: 1em 0em 1em 0em;
-}
-
-#container {
-    display: flex;
 }
 
 #warning {
