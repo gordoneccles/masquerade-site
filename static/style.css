@@ -36,10 +36,12 @@ p {
     flex-direction: column;
     align-items: center;
 }
+
 #thank-you {
   display: none;
   opacity: 0;
 }
+
 #chickens img {
     filter: invert(100%);
     margin-left: auto;
@@ -56,6 +58,11 @@ p {
 .image_on, #chickens:hover .image_off {
    display:block;
 }
+
+#accept-btn {
+  text-decoration: underline;
+}
+
 input {
     border: none;
     border-radius: 2px;

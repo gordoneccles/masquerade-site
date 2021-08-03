@@ -6,6 +6,7 @@ const OPACITY_POINTS = {
     '#accept': 800,
 };
 let opacityPoint = -100;
+let submitHandlerAdded = false;
 
 const setOpacity = (val, isIntro = false) => {
     const minVal = isIntro ? -100 : 0;
@@ -25,8 +26,15 @@ const setOpacity = (val, isIntro = false) => {
 
 const addWheelHandler = () => {
     document.addEventListener('wheel', function (e) {
+      if (!submitHandlerAdded) {
+        addSubmitHandler(false);
+        submitHandlerAdded = true;
+      }
+
+      if (e.deltaY !== 0) {
         const normalizedDelta = e.deltaY / Math.abs(e.deltaY);
-        setOpacity(opacityPoint + 2 * normalizedDelta);
+        setOpacity(opacityPoint + 4 * normalizedDelta);
+      }
     }, false);
 };
 
@@ -40,6 +48,11 @@ const addTouchHandlers = () => {
     document.addEventListener(
         "touchstart",
         e => {
+            if (!submitHandlerAdded) {
+              addSubmitHandler(true);
+              submitHandlerAdded = true;
+            }
+
             startY = e.changedTouches[0].clientY;
             opacityStart = opacityPoint;
             moveEvents = [];
@@ -138,8 +151,9 @@ const validateInputs = (nameEl, emailEl) => {
   return valid;
 }
 
-const addSubmitHandler = () => {
+const addSubmitHandler = (isMobile) => {
     let buttonIsClickable = true
+
     const acceptInvite = e => {
         const nameInput = document.querySelector('#name-input');
         const emailInput = document.querySelector('#email-input');
@@ -169,11 +183,16 @@ const addSubmitHandler = () => {
         });
     };
 
-    document.getElementById('chickens').addEventListener('click', e => {
+    const chickenBtn = document.getElementById('chickens');
+    const acceptBtn = document.getElementById('accept-btn');
+    const submitBtnForDevice = isMobile ? acceptBtn : chickenBtn;
+    const notSubmitBtnForDevice = isMobile ? chickenBtn : acceptBtn;
+    submitBtnForDevice.addEventListener('click', e => {
         if (buttonIsClickable) {
             acceptInvite();
         }
     });
+    notSubmitBtnForDevice.style.display = 'none';
 };
 
 const fadeInWelcome = () => {
@@ -190,7 +209,6 @@ const fadeInWelcome = () => {
 document.addEventListener('DOMContentLoaded', function () {
     addWheelHandler();
     addTouchHandlers();
-    addSubmitHandler();
     fadeInWelcome();
 }, false);
 
