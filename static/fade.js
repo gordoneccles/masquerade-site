@@ -26,10 +26,10 @@ const setOpacity = (val, isIntro = false) => {
 
 const addWheelHandler = () => {
     document.addEventListener('wheel', function (e) {
-      if (!submitHandlerAdded) {
-        addSubmitHandler(false);
-        submitHandlerAdded = true;
-      }
+//      if (!submitHandlerAdded) {
+//        addSubmitHandler(false);
+//        submitHandlerAdded = true;
+//      }
 
       if (e.deltaY !== 0) {
         const normalizedDelta = e.deltaY / Math.abs(e.deltaY);
@@ -48,10 +48,10 @@ const addTouchHandlers = () => {
     document.addEventListener(
         "touchstart",
         e => {
-            if (!submitHandlerAdded) {
-              addSubmitHandler(true);
-              submitHandlerAdded = true;
-            }
+//            if (!submitHandlerAdded) {
+//              addSubmitHandler(true);
+//              submitHandlerAdded = true;
+//            }
 
             startY = e.changedTouches[0].clientY;
             opacityStart = opacityPoint;

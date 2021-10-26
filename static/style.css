@@ -31,6 +31,7 @@ p {
     color: #B80F0A;
 }
 
+/*
 #accept-container {
     display: flex;
     flex-direction: column;
@@ -79,6 +80,7 @@ input.invalid {
     justify-content: center;
     margin-top: 10px;
 }
+*/
 
 @media screen and (max-width: 1200px) {
     body {
